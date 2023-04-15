@@ -25,3 +25,11 @@ $(function () {
 });
 
 $("#currentDay").text(today.format("dddd, MMMM DD "));
+
+//use today.startOf("Date") to connect with the columns and know what time it is for past future or present classes being used 
+
+//then write conditional statement that moves classes dynamically based on the time it is 
+// EX: if (today.startOf("Date")) is > (id of specific column)
+//tell it to change the class to past 
+//if = change the css to present
+//if = future, change the css to future class
