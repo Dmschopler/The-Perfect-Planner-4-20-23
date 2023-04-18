@@ -10,13 +10,30 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
-  //
+  $(".saveBtn").on("click", function(event) {
+    event.preventDefault();
+    var taskText = $(this).siblings(".task").text();
+    var hours = $(this).siblings("#hour").val();
+    localStorage.setItem(hours, JSON.stringify(taskText));
+  });
+
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  //
+$(".time-block").each(function() {
+  var block = parseInt($(this).attr("id").split("-")[1]);
+  var currentBlock = dayjs().format("H");
+  if (block < currentBlock) {
+    $(this).addClass("past");
+  } else if (block === currentBlock) {
+    $(this).addClass("present");
+  } else {
+    $(this).addClass("future");
+  }
+});
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
@@ -25,11 +42,3 @@ $(function () {
 });
 
 $("#currentDay").text(today.format("dddd, MMMM DD "));
-
-//use today.startOf("Date") to connect with the columns and know what time it is for past future or present classes being used 
-
-//then write conditional statement that moves classes dynamically based on the time it is 
-// EX: if (today.startOf("Date")) is > (id of specific column)
-//tell it to change the class to past 
-//if = change the css to present
-//if = future, change the css to future class
