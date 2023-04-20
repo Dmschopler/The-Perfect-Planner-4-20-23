@@ -1,7 +1,5 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 var today = dayjs();
+$("#currentDay").text(today.format("dddd, MMMM DD "));
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -13,22 +11,19 @@ $(function () {
   $(".saveBtn").on("click", function(event) {
     event.preventDefault();
     var taskText = $(this).siblings(".task").text();
-    var hours = $(this).siblings("#hour").val();
+    console.log(taskText)
+    var hours = $(this).siblings(".hour").val();
+    console.log(hours)
     localStorage.setItem(hours, JSON.stringify(taskText));
+    console.log(localStorage)
   });
 
-
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
 $(".time-block").each(function() {
   var block = parseInt($(this).attr("id").split("-")[1]);
   var currentBlock = dayjs().format("H");
   if (block < currentBlock) {
     $(this).addClass("past");
-  } else if (block === currentBlock) {
+  } else if (block == currentBlock) {
     $(this).addClass("present");
   } else {
     $(this).addClass("future");
@@ -38,7 +33,5 @@ $(".time-block").each(function() {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
 });
 
-$("#currentDay").text(today.format("dddd, MMMM DD "));
